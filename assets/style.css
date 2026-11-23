@@ -1,0 +1,159 @@
+/*
+  Babino — the app's blue accent (#2563EB light / #5B8CFF dark) plus the
+  category colors used in the app (feeding, sleep, diapers…) as small dots.
+  Everything else is white, black, and gray. Follows the system light / dark setting.
+*/
+:root {
+  --ink: #0B1220;
+  --ink-soft: #5B6474;
+  --muted: #8E95A3;
+  --paper: #FFFFFF;
+  --paper-soft: #F3F6FC;
+  --line: #E3E8F1;
+
+  --accent: #2563EB;
+  --accent-soft: #E8F0FE;
+
+  /* category colors, as in the app (iOS system colors) */
+  --c-feed: #FF2D55;
+  --c-sleep: #5856D6;
+  --c-diaper: #30B0C7;
+  --c-growth: #34C759;
+  --c-symptoms: #FF9500;
+  --c-mood: #00C7BE;
+
+  --font-display: ui-rounded, "SF Pro Rounded", -apple-system, system-ui, sans-serif;
+  --font-body: -apple-system, "SF Pro Text", system-ui, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ink: #F5F7FB;
+    --ink-soft: #A3ABBA;
+    --muted: #6B7383;
+    --paper: #05080F;
+    --paper-soft: #0F1522;
+    --line: rgba(255, 255, 255, 0.10);
+    --accent: #5B8CFF;
+    --accent-soft: rgba(91, 140, 255, 0.14);
+    --c-feed: #FF375F;
+    --c-sleep: #5E5CE6;
+    --c-diaper: #40C8E0;
+    --c-growth: #30D158;
+    --c-symptoms: #FF9F0A;
+    --c-mood: #63E6E2;
+  }
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+}
+img { max-width: 100%; display: block; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 800; letter-spacing: -0.02em; margin: 0; text-wrap: balance; }
+p { margin: 0; text-wrap: pretty; }
+a { color: inherit; text-decoration: none; }
+a.link { color: var(--accent); font-weight: 600; }
+a.link:hover { text-decoration: underline; }
+::selection { background: var(--accent); color: #fff; }
+
+.wrap { max-width: 760px; margin: 0 auto; padding: 0 24px; }
+
+/* ---------- nav ---------- */
+.topnav {
+  position: sticky; top: 0; z-index: 10;
+  background: color-mix(in srgb, var(--paper) 82%, transparent);
+  backdrop-filter: blur(18px) saturate(1.4);
+  -webkit-backdrop-filter: blur(18px) saturate(1.4);
+  border-bottom: 1px solid var(--line);
+}
+.topnav-row { display: flex; align-items: center; justify-content: space-between; height: 60px; gap: 16px; }
+.brand { display: flex; align-items: center; gap: 10px; font-family: var(--font-display); font-weight: 800; font-size: 17px; }
+.brand img, .brand .icon-slot { width: 28px; height: 28px; border-radius: 7px; }
+
+/* Empty app-icon slot until the real icon is ready: swap for <img src="assets/icon.png">. */
+.icon-slot { display: block; background: var(--accent-soft); border: 1px solid var(--line); }
+.nav-links { display: flex; gap: 22px; font-size: 14px; color: var(--ink-soft); }
+.nav-links a:hover { color: var(--accent); }
+
+/* ---------- landing ---------- */
+.hero { padding: 96px 0 72px; text-align: center; }
+.hero-icon {
+  display: block;
+  width: 128px; height: 128px; margin: 0 auto 32px;
+  border-radius: 29px;
+  box-shadow: 0 18px 48px -14px color-mix(in srgb, var(--accent) 55%, transparent);
+}
+.hero h1 { font-size: clamp(38px, 6vw, 58px); line-height: 1.04; }
+.hero h1 span { color: var(--accent); }
+.hero .lead { margin: 20px auto 0; max-width: 36ch; font-size: 18px; color: var(--ink-soft); line-height: 1.6; }
+
+.about { padding: 56px 0; border-top: 1px solid var(--line); }
+.eyebrow {
+  font-family: var(--font-mono); font-size: 12px; font-weight: 600;
+  letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent);
+  margin-bottom: 12px;
+}
+.about h2 { font-size: clamp(26px, 3.6vw, 32px); line-height: 1.15; margin-bottom: 16px; }
+.about > .wrap > p { font-size: 16.5px; color: var(--ink-soft); line-height: 1.7; max-width: 62ch; }
+
+.features { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 32px; }
+@media (max-width: 600px) { .features { grid-template-columns: 1fr; } }
+.feature { padding: 20px 22px; background: var(--paper-soft); border-radius: 18px; }
+.feature b { display: flex; align-items: center; gap: 8px; font-family: var(--font-display); font-size: 16px; margin-bottom: 4px; }
+.dot { width: 9px; height: 9px; border-radius: 50%; flex: none; background: var(--accent); }
+.dot.feed { background: var(--c-feed); }
+.dot.sleep { background: var(--c-sleep); }
+.dot.diaper { background: var(--c-diaper); }
+.dot.growth { background: var(--c-growth); }
+.dot.symptoms { background: var(--c-symptoms); }
+.dot.mood { background: var(--c-mood); }
+.feature span { font-size: 14.5px; color: var(--ink-soft); line-height: 1.55; }
+
+.contact { padding: 56px 0 88px; border-top: 1px solid var(--line); }
+.contact-card { padding: 28px; border-radius: 22px; background: var(--accent-soft); }
+.contact-card h3 { font-size: 20px; margin-bottom: 6px; }
+.contact-card p { color: var(--ink-soft); margin-bottom: 12px; }
+
+.note { margin-top: 24px; padding: 18px 22px; border-radius: 18px; border: 1px solid var(--line); font-size: 14px; color: var(--ink-soft); line-height: 1.6; }
+.note b { color: var(--ink); }
+
+/* ---------- legal pages ---------- */
+.legal-head { padding: 56px 0 32px; border-bottom: 1px solid var(--line); }
+.legal-head h1 { font-size: clamp(32px, 4.6vw, 42px); line-height: 1.08; }
+.updated { margin-top: 12px; font-size: 13.5px; color: var(--muted); }
+.legal-head .lead { margin-top: 20px; font-size: 16px; line-height: 1.7; color: var(--ink-soft); }
+
+article { padding: 40px 0 88px; }
+.clause { padding: 28px 0; border-top: 1px solid var(--line); }
+.clause:first-child { border-top: none; padding-top: 0; }
+.clause-num { font-family: var(--font-mono); font-size: 12px; font-weight: 600; color: var(--accent); margin-bottom: 6px; }
+.clause h2 { font-size: 19px; margin-bottom: 10px; letter-spacing: -0.01em; }
+.clause p, .clause li { font-size: 15.5px; line-height: 1.75; color: var(--ink-soft); }
+.clause p { margin-bottom: 12px; }
+.clause p:last-child { margin-bottom: 0; }
+.clause ul { margin: 0 0 12px; padding-left: 20px; }
+.clause li { margin-bottom: 6px; }
+.clause b { color: var(--ink); font-weight: 600; }
+.clause .callout { padding: 16px 18px; border-radius: 14px; background: var(--accent-soft); color: var(--ink); }
+.clause a { color: var(--accent); }
+
+/* ---------- footer ---------- */
+footer { padding: 28px 0; border-top: 1px solid var(--line); }
+.foot-row { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; font-size: 13px; color: var(--muted); }
+.foot-legal { display: flex; gap: 18px; }
+.foot-legal a:hover { color: var(--accent); }
+
+@media (max-width: 420px) {
+  .nav-links { gap: 14px; font-size: 13px; }
+  .hero { padding: 64px 0 56px; }
+}
